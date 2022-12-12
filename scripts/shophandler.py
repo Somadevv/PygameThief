@@ -8,6 +8,14 @@ playerInventory = Inventory()
 
 
 class Button:
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self):
         self.buttons: List[Button()] = []
         # self.base_rect is going to be the one that never gets modified
@@ -21,6 +29,7 @@ class Button:
         self.x_offset = 50
 
     def button_rects(self):
+
         for i, item in enumerate(shopItems):
             offset_vector = pygame.Vector2(
                 self.x_offset*(i % 3), self.y_offset*(i//3))
@@ -30,21 +39,21 @@ class Button:
 
     def render_buttons(self, screen):
         for i in self.buttons:
-            pygame.draw.rect(screen, "white", i)
+            pygame.draw.rect(screen, "red", i)
 
-        self.button_collision()
+        # self.button_collision()
 
-    def button_collision(self) -> bool:
-        mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-        for i, item in enumerate(self.buttons):
-            if item.collidepoint(mouse_pos):
-                print(i)
-                item.width = 40
-                item.height = 40
-                # self.player.remove_gold(shopItems[str(i + 1)]["price"])
-            else:
-                item.w = 30
-                item.h = 30
+    # def button_collision(self) -> bool:
+    #     mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
+    #     for i, item in enumerate(self.buttons):
+    #         if item.collidepoint(mouse_pos):
+    #             item.width = 40
+    #             item.height = 40
+    #             exit
+    #             # self.player.remove_gold(shopItems[str(i + 1)]["price"])
+    #         else:
+    #             item.w = 30
+    #             item.h = 30
 
     # def button_scale(self, scale_factor=1.2) -> None:
     #     width = self.base_rect.width * scale_factor
@@ -93,7 +102,6 @@ class Shop:
 
         pygame.draw.rect(screen, self.containerColor, pygame.Rect(self.containerX, self.containerY,
                                                                   self.containerWidth, self.containerHeight))
-        self.button.button_rects()
 
     def close_inv(self):
         self.toggleOpen = False
@@ -107,7 +115,6 @@ class Shop:
         pass
 
     def initialize(self, screen):
-        pass
 
         if self.toggleOpen:
             self.open(screen)

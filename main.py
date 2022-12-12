@@ -4,7 +4,7 @@ from scripts.worldGenerator import WorldGenerator
 from scripts.controller import Controller
 from scripts.player import Player
 from scripts.inventory import Inventory
-from scripts.shophandler import Shop
+from scripts.shophandler import Shop, Button
 
 # Initialise pygame
 pygame.init()
@@ -34,8 +34,11 @@ playerInventory = Inventory()
 playerControls = Controller()
 # Get Player Inventory on load
 shopHandler = Shop()
+shopHandlerButton = Button()
+
 
 playerInventory.load()
+shopHandlerButton.button_rects()
 
 
 # Player Position on Load
@@ -53,7 +56,7 @@ while running:
 
     # Control
     playerControls.GameControls(
-        playerInstance, generateWorld.rects, playerInventory, shopHandler)
+        playerInstance, generateWorld.rects, playerInventory, shopHandler, shopHandlerButton)
 
     # Update Player Position
     playerInstance.initialize(dt, generateWorld.rects)
