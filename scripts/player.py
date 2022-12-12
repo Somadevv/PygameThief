@@ -1,7 +1,8 @@
 import pygame
+from scripts.drawText import DrawText
 
 
-class Player():
+class Player:
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -9,7 +10,7 @@ class Player():
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self):
+    def __init__(self, surface):
         self.rect = pygame.Rect(0, 0, 20, 40)
         self.rect_small = pygame.Rect(0, 0, 20, 20)
         self.LEFT_KEY, self.RIGHT_KEY, self.DOWN_KEY = False, False, False
@@ -19,6 +20,36 @@ class Player():
         self.position, self.velocity = pygame.math.Vector2(
             0, 0), pygame.math.Vector2(0, 0)
         self.acceleration = pygame.math.Vector2(0, self.gravity)
+        self.gold = 5000
+        self.surface = surface
+
+    def add_gold(self, amount):
+        self.gold += amount
+
+    def remove_gold(self, amount):
+        print("amount", amount)
+        # self.render_gold()
+        self.gold -= amount
+        print("Gold", self.gold)
+
+    def reset_gold(self):
+        self.gold = 0
+
+    def render_gold(self):
+        coinWidth = 20
+        coinHeight = 20
+        textSize = 16
+        textColor = (255, 255, 255)
+        coinXpos = 5
+        coinYPos = 5
+        coinIcon = pygame.image.load(
+            "Assets/Images/Icons/coin.png").convert_alpha()
+        coinImage = pygame.transform.scale(
+            coinIcon, (coinWidth, coinHeight))
+
+        self.surface.blit(coinImage, (coinXpos, coinYPos))
+        DrawText(self.surface, str(self.gold), textSize, textColor,
+                 38, 17.75)
 
     def draw(self, display):
         if self.DOWN_KEY:
@@ -138,12 +169,12 @@ class Player():
         if self.on_right_wall:
             self.is_jumping = True
             self.velocity.y -= 14
-            self.velocity.x -= 10
+            self.velocity.x -= 7
             self.on_ground = False
         if self.on_left_wall:
             self.is_jumping = True
             self.velocity.y -= 14
-            self.velocity.x += 10
+            self.velocity.x += 7
             self.on_ground = False
 
     def initialize(self, dt, worldRects):

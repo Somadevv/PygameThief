@@ -1,7 +1,7 @@
 import pygame
 
 
-class DrawText():
+class DrawText:
     def __init__(self, surface, text, size, color, x, y):
         self.text = text
         self.color = color

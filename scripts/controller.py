@@ -2,18 +2,13 @@ import pygame
 import sys
 
 
-class Controller():
-    def __init__(self):
-        self.playerInventoryOpen = False
+class Controller:
 
-    def GameControls(self, Player, worldRects):
-        test = pygame.event.get()
-        for event in test:
+    def GameControls(self, Player, worldRects, Inventory, ShopHandler):
+
+        for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                # Inventory
-                if event.key == pygame.K_TAB:
-                    print("opened")
-                    self.playerInventoryOpen = not self.playerInventoryOpen
+
                 # Movement
                 if event.key == pygame.K_a:
                     Player.LEFT_KEY = True
@@ -27,6 +22,15 @@ class Controller():
                     pygame.quit()
                     sys.exit()
             if event.type == pygame.KEYUP:
+                # Inventory
+                if event.key == pygame.K_1:
+                    Inventory.add_item(1)
+                    Inventory.delete_item(2)
+                if event.key == pygame.K_TAB:
+                    print("opened")
+                    Inventory.toggleInventory = not Inventory.toggleInventory
+                if event.key == pygame.K_g:
+                    ShopHandler.toggleOpen = not ShopHandler.toggleOpen
                 if event.key == pygame.K_a:
                     Player.LEFT_KEY = False
                 elif event.key == pygame.K_d:

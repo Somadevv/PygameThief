@@ -6,7 +6,7 @@ import pygame
 #     self.playerStartPosition = 375, 250
 
 
-class World():
+class World:
 
     def DrawWorld(SURFACE, RECT):
         for i in RECT:

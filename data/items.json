@@ -1,0 +1,11 @@
+{
+  "1": { "name": "Door key", "price": 10 },
+  "2": { "name": "Axe", "price": 5 },
+  "3": { "name": "Sword", "price": 3 },
+  "4": { "name": "Shield", "price": 11 },
+  "5": { "name": "Potion", "price": 7 },
+  "6": { "name": "Ring", "price": 20 },
+  "7": { "name": "Helmet", "price": 50 },
+  "8": { "name": "Legs", "price": 30 },
+  "9": { "name": "Shoulders", "price": 40 }
+}

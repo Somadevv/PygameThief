@@ -1,9 +1,10 @@
 import pygame
-import World.worldGenerator
-import Player.player as player
-import World.world
-import Controller.controller
-import Player.Inventory.inventory
+from scripts.world import World
+from scripts.worldGenerator import WorldGenerator
+from scripts.controller import Controller
+from scripts.player import Player
+from scripts.inventory import Inventory
+from scripts.shophandler import Shop
 
 # Initialise pygame
 pygame.init()
@@ -24,17 +25,17 @@ running = True
 
 
 # Add Player
-playerInstance = player.Player()
+playerInstance = Player(GAME_WINDOW)
 
 # Assign Variables to Imports
-worldData = World.worldGenerator.worldGenerator()
-userControls = Controller.controller.Controller()
-worldGeneration = World.world.World
-
-playerInventory = Player.Inventory.inventory.Inventory()
-
+generateWorld = WorldGenerator()
+worldGeneration = World
+playerInventory = Inventory()
+playerControls = Controller()
 # Get Player Inventory on load
-playerInventory.GetInventory()
+shopHandler = Shop()
+
+playerInventory.load()
 
 
 # Player Position on Load
@@ -43,17 +44,19 @@ playerInstance.position.x, playerInstance.position.y = 0, 0
 # Game loop
 while running:
     # Draw World
-    worldGeneration.DrawWorld(CANVAS, worldData.rects)
+
+    worldGeneration.DrawWorld(CANVAS, generateWorld.rects)
     GAME_WINDOW.blit(CANVAS, (0, 0))
 
     # Define Delta Time
     dt = CLOCK.tick(GAME_TICK) * .001 * TARGET_FPS
 
     # Control
-    userControls.GameControls(playerInstance, worldData.rects)
+    playerControls.GameControls(
+        playerInstance, generateWorld.rects, playerInventory, shopHandler)
 
     # Update Player Position
-    playerInstance.initialize(dt, worldData.rects)
+    playerInstance.initialize(dt, generateWorld.rects)
 
     # Draw Background
     CANVAS.fill((255, 255, 255))
@@ -62,12 +65,7 @@ while running:
     playerInstance.draw(CANVAS)
 
     # Draw Player inventory bag
-    playerInventory.DrawInventoryBagToWindow(
-        GAME_WINDOW)
-
-    if userControls.playerInventoryOpen:
-        playerInventory.DrawInventory(GAME_WINDOW)
-    else:
-        playerInventory.CloseInventory(GAME_WINDOW)
+    playerInventory.initialize(GAME_WINDOW)
+    shopHandler.initialize(GAME_WINDOW)
 
     pygame.display.update()

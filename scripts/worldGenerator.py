@@ -1,11 +1,12 @@
 import pygame
 import json
 # Opening JSON file
-test = open('Data/Levels/test_level.json')
+test = open('data/test_level.json')
 data = json.load(test)
 
 
-class worldGenerator():
+class WorldGenerator:
+
     def __init__(self):
         self.rects = []
         self.playerStartPosition = 0, 0
