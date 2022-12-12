@@ -1,0 +1,8 @@
+[
+  { "width": 750, "height": 72, "xPos": 0, "yPos": 428, "color": "#D9D9D9" },
+  { "width": 14, "height": 275, "xPos": 384, "yPos": 78, "color": "#D9D9D9" },
+  { "width": 14, "height": 325, "xPos": 489, "yPos": 78, "color": "#D9D9D9" },
+  { "width": 161, "height": 14, "xPos": 237, "yPos": 353, "color": "#D9D9D9" },
+  { "width": 161, "height": 14, "xPos": 503, "yPos": 78, "color": "#D9D9D9" },
+  { "width": 161, "height": 14, "xPos": 503, "yPos": 389, "color": "#D9D9D9" }
+]
