@@ -13,7 +13,7 @@ class Player:
     def __init__(self, surface):
         self.rect = pygame.Rect(0, 0, 20, 40)
         self.rect_small = pygame.Rect(0, 0, 20, 20)
-        self.LEFT_KEY, self.RIGHT_KEY, self.DOWN_KEY = False, False, False
+        self.LEFT_KEY, self.RIGHT_KEY = False, False
         self.is_jumping, self.on_ground = False, False
         self.on_right_wall, self.on_left_wall = False, False
         self.gravity, self.friction = .5, -.1
@@ -75,41 +75,22 @@ class Player:
         self.rect.x = self.position.x
         self.rect_small.x = self.position.x
 
-        if self.DOWN_KEY:
-            for i in worldRects:
-                for i in worldRects:
-                    # Right Collision Crouched
-                    if i.left - 2 <= self.rect_small.right <= i.left and self.rect_small.bottom > i.top and self.rect_small.top < i.bottom:
-                        self.velocity.x = 0
-                        self.on_right_wall = True
-                        self.RIGHT_KEY = False
-                        self.is_jumping = False
-                        self.on_ground = False
+        for i in worldRects:
+            # Right Collision
+            if i.left - 2 <= self.rect.right <= i.left and self.rect.bottom > i.top and self.rect.top < i.bottom:
+                self.velocity.x = 0
+                self.on_right_wall = True
+                self.RIGHT_KEY = False
+                self.is_jumping = False
+                self.on_ground = False
 
-                    # Left Collision Crouched
-                    if i.right <= self.rect_small.left <= i.right + 2 and self.rect_small.bottom > i.top and self.rect_small.top < i.bottom:
-                        self.velocity.x = 0
-                        self.on_left_wall = True
-                        self.LEFT_KEY = False
-                        self.is_jumping = False
-                        self.on_ground = False
-        else:
-            for i in worldRects:
-                # Right Collision
-                if i.left - 2 <= self.rect.right <= i.left and self.rect.bottom > i.top and self.rect.top < i.bottom:
-                    self.velocity.x = 0
-                    self.on_right_wall = True
-                    self.RIGHT_KEY = False
-                    self.is_jumping = False
-                    self.on_ground = False
-
-                # Left Collision
-                if i.right <= self.rect.left <= i.right + 2 and self.rect.bottom > i.top and self.rect.top < i.bottom:
-                    self.velocity.x = 0
-                    self.on_left_wall = True
-                    self.LEFT_KEY = False
-                    self.is_jumping = False
-                    self.on_ground = False
+            # Left Collision
+            if i.right <= self.rect.left <= i.right + 2 and self.rect.bottom > i.top and self.rect.top < i.bottom:
+                self.velocity.x = 0
+                self.on_left_wall = True
+                self.LEFT_KEY = False
+                self.is_jumping = False
+                self.on_ground = False
 
     def vertical_movement(self, dt, worldRects):
         self.velocity.y += self.acceleration.y * dt
@@ -118,40 +99,23 @@ class Player:
         self.position.y += self.velocity.y * dt + \
             (self.acceleration.y * .9) * (dt * dt)
 
-        if self.DOWN_KEY:
-            for i in worldRects:
-                # Bottom Collision Crouched
-                if i.top <= self.rect_small.bottom <= i.top + 5 and self.rect_small.right > i.left and self.rect_small.left < i.right:
-                    if self.position.y >= i.top:
-                        self.on_ground = True
-                        self.is_jumping = False
-                        self.on_right_wall = False
-                        self.on_left_wall = False
-                        self.velocity.y = 0
-                        self.position.y = i.top
-
-                # Top Collision Crouched
-                if i.bottom - 5 <= self.rect_small.top <= i.bottom and self.rect_small.right > i.left and self.rect_small.left < i.right:
+        for i in worldRects:
+            # Bottom Collision
+            if i.top <= self.rect.bottom <= i.top + 5 and self.rect.right > i.left and self.rect.left < i.right:
+                if self.position.y >= i.top:
+                    self.on_ground = True
                     self.is_jumping = False
-                    self.velocity.y += 15
-        else:
-            for i in worldRects:
-                # Bottom Collision
-                if i.top <= self.rect.bottom <= i.top + 5 and self.rect.right > i.left and self.rect.left < i.right:
-                    if self.position.y >= i.top:
-                        self.on_ground = True
-                        self.is_jumping = False
-                        self.on_right_wall = False
-                        self.on_left_wall = False
-                        self.velocity.y = 0
-                        self.position.y = i.top
+                    self.on_right_wall = False
+                    self.on_left_wall = False
+                    self.velocity.y = 0
+                    self.position.y = i.top
 
-                # Top Collision
-                if i.bottom - 5 <= self.rect.top <= i.bottom and self.rect.right > i.left and self.rect.left < i.right:
-                    self.is_jumping = False
-                    self.velocity.y += 15
-                else:
-                    self.DOWN_KEY = False
+            # Top Collision
+            if i.bottom - 5 <= self.rect.top <= i.bottom and self.rect.right > i.left and self.rect.left < i.right:
+                self.is_jumping = False
+                self.velocity.y += 15
+            else:
+                self.DOWN_KEY = False
 
         self.rect.bottom = self.position.y
         self.rect_small.bottom = self.position.y
