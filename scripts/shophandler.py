@@ -18,15 +18,11 @@ class Button:
 
     def __init__(self):
         self.buttons: List[Button()] = []
-        # self.base_rect is going to be the one that never gets modified
-        # self.base_rect = rect
-        # self.rect is going to be the one that is active
-        # self.rect = rect
-        self.base_pos = pygame.Vector2(750 / 3, 150)
-        self.width = 30
-        self.height = 30
-        self.y_offset = 50
-        self.x_offset = 50
+        self.base_pos = pygame.Vector2(750 / 1 - 230, 150)
+        self.width = 35
+        self.height = 35
+        self.x_offset = self.width * 1.75
+        self.y_offset = self.height * 1.75
 
     def button_rects(self):
 
@@ -41,40 +37,6 @@ class Button:
         for i in self.buttons:
             pygame.draw.rect(screen, "red", i)
 
-        # self.button_collision()
-
-    # def button_collision(self) -> bool:
-    #     mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-    #     for i, item in enumerate(self.buttons):
-    #         if item.collidepoint(mouse_pos):
-    #             item.width = 40
-    #             item.height = 40
-    #             exit
-    #             # self.player.remove_gold(shopItems[str(i + 1)]["price"])
-    #         else:
-    #             item.w = 30
-    #             item.h = 30
-
-    # def button_scale(self, scale_factor=1.2) -> None:
-    #     width = self.base_rect.width * scale_factor
-    #     height = self.base_rect.height * scale_factor
-
-    #     c_pos = self.base_rect.center
-
-    #     self.rect = pygame.Rect(0, 0, width, height)
-    #     self.rect.center = c_pos
-
-    # def button_controls(self, screen):
-    #     mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-    #     for i, button in enumerate(self.buttons):
-    #         if button.collidepoint(mouse_pos):
-    #             button.scale(1.2)
-    #             self.player.remove_gold(shopItems[str(i + 1)]["price"])
-    #         else:
-    #             button.scale(1)
-
-    #         pygame.draw.rect(screen, "white", button.rect)
-
 
 class Shop:
     # Buy, Sell, Standard/Special Items (tabs?)
@@ -88,15 +50,14 @@ class Shop:
     def __init__(self):
         self.button = Button()
         self.toggleOpen = False
-        # self.playerInventory = Player.inventory.Inventory(screen)
-        # self.player = Player.player.Player(screen)
         self.pressed = False
         self.isCollided = False
 
     def open(self, screen):
-        self.containerWidth = screen.get_width() / 2
-        self.containerHeight = screen.get_height() / 2
-        self.containerX = self.containerWidth - self.containerWidth / 2
+        self.containerWidth = screen.get_width() / 3
+        self.containerHeight = screen.get_height() / 2.1
+        # self.containerX = self.containerWidth - self.containerWidth / 2
+        self.containerX = screen.get_width() - self.containerWidth - 30
         self.containerY = self.containerHeight - self.containerHeight / 2
         self.containerColor = (0, 0, 0)
 

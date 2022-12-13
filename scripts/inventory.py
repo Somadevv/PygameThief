@@ -19,8 +19,8 @@ class Inventory:
     def load(self):
         print("Loaded player inventory...")
 
-        self.containerX = 100
-        self.containerY = 200
+        self.containerX = 15
+        self.containerY = 150
         #  PARENT container
         self.container = pygame.Rect(
             self.containerX, self.containerY, 200, 200)
@@ -33,17 +33,17 @@ class Inventory:
 
     def update(self, surface):
         origin = pygame.Rect(
-            150, self.containerY + 20, 20, 20)
+            self.containerX, self.containerY + 20, 20, 20)
         if self.INVENTORY:
             for i, item in enumerate(self.INVENTORY):
                 # Grid column spacing
-                y_offset = 40
-                xPos = 130 + (i % 3) * 80
+                y_offset = 60
+                xPos = self.containerX + 20 + (i % 3) * 57
                 yPos = origin.y + y_offset * (i // 3)
-                width = 50
-                height = 50
-                textSize = 15
-                textColor = (100, 30, 255)
+                width = 35
+                height = 35
+                textSize = 13
+                textColor = (255, 255, 255)
 
                 pygame.draw.rect(surface, (0, 0, 0), pygame.Rect(
                     xPos, yPos, width, height), 1)
@@ -68,7 +68,7 @@ class Inventory:
             else:
                 print("Item already in inventory")
         else:
-            print("No item with that ID exists")
+            print("No item with that ID exists", itemId)
 
     def delete_item(self, itemId):
         itemId = str(itemId)

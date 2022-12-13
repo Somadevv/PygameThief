@@ -20,17 +20,14 @@ class Player:
         self.position, self.velocity = pygame.math.Vector2(
             0, 0), pygame.math.Vector2(0, 0)
         self.acceleration = pygame.math.Vector2(0, self.gravity)
-        self.gold = 5000
+        self.gold = 50
         self.surface = surface
 
     def add_gold(self, amount):
         self.gold += amount
 
     def remove_gold(self, amount):
-        print("amount", amount)
-        # self.render_gold()
         self.gold -= amount
-        print("Gold", self.gold)
 
     def reset_gold(self):
         self.gold = 0
@@ -39,11 +36,11 @@ class Player:
         coinWidth = 20
         coinHeight = 20
         textSize = 16
-        textColor = (255, 255, 255)
+        textColor = (0, 0, 0)
         coinXpos = 5
         coinYPos = 5
         coinIcon = pygame.image.load(
-            "Assets/Images/Icons/coin.png").convert_alpha()
+            "assets/Images/coin.png").convert_alpha()
         coinImage = pygame.transform.scale(
             coinIcon, (coinWidth, coinHeight))
 
@@ -60,6 +57,7 @@ class Player:
     def update(self, dt, worldRects):
         self.horizontal_movement(dt, worldRects)
         self.vertical_movement(dt, worldRects)
+        self.render_gold()
 
     def horizontal_movement(self, dt, worldRects):
         self.acceleration.x = 0
