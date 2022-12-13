@@ -1,5 +1,8 @@
 import pygame
 import sys
+from scripts.loadFile import load_file
+
+shopItems = load_file('data/items.json')
 
 
 class Controller:
@@ -11,7 +14,13 @@ class Controller:
             if event.type == pygame.MOUSEBUTTONUP:
                 for i, item in enumerate(ShopHandlerButton.buttons):
                     if event.button == 1 and item.collidepoint(mouse_pos) and ShopHandler.toggleOpen:
-                        print(item, "Hello")
+                        i = i + 1
+                        if Player.gold < shopItems[str(i)]["price"]:
+                            print("You can't afford this")
+                        else:
+                            Inventory.add_item(i)
+                            Player.remove_gold(shopItems[str(i)]["price"])
+
             if event.type == pygame.KEYDOWN:
                 # Movement
                 if event.key == pygame.K_a:
