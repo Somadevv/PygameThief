@@ -1,10 +1,10 @@
 from typing import List
 import pygame
-from scripts.loadFile import load_file
+from scripts.load_file import load_file
 from scripts.inventory import Inventory
 
 shopItems = load_file('data/items.json')
-playerInventory = Inventory()
+# playerInventory = Inventory()
 
 
 class Button:
@@ -16,13 +16,14 @@ class Button:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self):
-        self.buttons: List[Button()] = []
+    def __init__(self, screen):
+        self.buttons: List[Button(screen)] = []
         self.base_pos = pygame.Vector2(750 / 1 - 230, 150)
         self.width = 35
         self.height = 35
         self.x_offset = self.width * 1.75
         self.y_offset = self.height * 1.75
+        self.screen = screen
 
     def button_rects(self):
 
@@ -39,30 +40,30 @@ class Button:
 
 
 class Shop:
-    # Buy, Sell, Standard/Special Items (tabs?)
-    _instance = None
+    # _instance = None
 
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
+    # def __new__(cls, *args, **kwargs):
+    #     if cls._instance is None:
+    #         cls._instance = super().__new__(cls)
+    #     return cls._instance
 
-    def __init__(self):
-        self.button = Button()
+    def __init__(self, screen):
+        self.button = Button(screen)
         self.toggleOpen = False
         self.pressed = False
         self.isCollided = False
+        self.screen = screen
 
-    def open(self, screen):
-        self.containerWidth = screen.get_width() / 3
-        self.containerHeight = screen.get_height() / 2.1
+    def open(self):
+        self.containerWidth = self.screen.get_width() / 3
+        self.containerHeight = self.screen.get_height() / 2.1
         # self.containerX = self.containerWidth - self.containerWidth / 2
-        self.containerX = screen.get_width() - self.containerWidth - 30
+        self.containerX = self.screen.get_width() - self.containerWidth - 30
         self.containerY = self.containerHeight - self.containerHeight / 2
         self.containerColor = (0, 0, 0)
 
-        pygame.draw.rect(screen, self.containerColor, pygame.Rect(self.containerX, self.containerY,
-                                                                  self.containerWidth, self.containerHeight))
+        pygame.draw.rect(self.screen, self.containerColor, pygame.Rect(self.containerX, self.containerY,
+                                                                       self.containerWidth, self.containerHeight))
 
     def close_inv(self):
         self.toggleOpen = False
@@ -75,10 +76,10 @@ class Shop:
     def shop_sell(self, itemId):
         pass
 
-    def initialize(self, screen):
+    def initialize(self):
 
         if self.toggleOpen:
-            self.open(screen)
-            self.button.render_buttons(screen)
+            self.open()
+            self.button.render_buttons(self.screen)
         else:
             self.close_inv()

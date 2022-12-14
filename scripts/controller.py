@@ -1,6 +1,6 @@
 import pygame
 import sys
-from scripts.loadFile import load_file
+from scripts.load_file import load_file
 
 shopItems = load_file('data/items.json')
 
@@ -37,11 +37,9 @@ class Controller:
             if event.type == pygame.KEYUP:
                 # Inventory
                 if event.key == pygame.K_1:
-                    Inventory.add_item(1)
-                    Inventory.delete_item(2)
+                    print("1 pressed")
                 if event.key == pygame.K_TAB:
-                    print("opened")
-                    Inventory.toggleInventory = not Inventory.toggleInventory
+                    Inventory.toggle_inventory = not Inventory.toggle_inventory
                 if event.key == pygame.K_g:
                     ShopHandler.toggleOpen = not ShopHandler.toggleOpen
                 if event.key == pygame.K_a:

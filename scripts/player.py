@@ -1,5 +1,5 @@
 import pygame
-from scripts.drawText import DrawText
+from scripts.draw_text import DrawText
 
 
 class Player:

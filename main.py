@@ -1,16 +1,15 @@
 import pygame
 from scripts.world import World
-from scripts.worldGenerator import WorldGenerator
+from scripts.world_generator import WorldGenerator
 from scripts.controller import Controller
 from scripts.player import Player
 from scripts.inventory import Inventory
-from scripts.shophandler import Shop, Button
-
+from scripts.shop_handler import Shop, Button
+from enum import Enum, auto
+from scripts.load_file import load_file
 # Initialise pygame
 pygame.init()
 
-
-# Draw Screen
 SCREEN_WIDTH, SCREEN_HEIGHT = 750, 500
 CANVAS = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 GAME_WINDOW = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -30,14 +29,14 @@ playerInstance = Player(GAME_WINDOW)
 # Assign Variables to Imports
 generateWorld = WorldGenerator()
 worldGeneration = World
-playerInventory = Inventory()
+playerInventory = Inventory(GAME_WINDOW)
 playerControls = Controller()
 # Get Player Inventory on load
-shopHandler = Shop()
-shopHandlerButton = Button()
+shopHandler = Shop(GAME_WINDOW)
+shopHandlerButton = Button(GAME_WINDOW)
 
 
-playerInventory.load()
+# playerInventory.load()
 shopHandlerButton.button_rects()
 
 
@@ -68,7 +67,8 @@ while running:
     playerInstance.draw(CANVAS)
 
     # Draw Player inventory bag
-    playerInventory.initialize(GAME_WINDOW)
-    shopHandler.initialize(GAME_WINDOW)
+
+    shopHandler.initialize()
+    playerInventory.initialize()
 
     pygame.display.update()
