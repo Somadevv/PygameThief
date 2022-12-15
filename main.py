@@ -42,7 +42,6 @@ shopHandlerButton = Button(GAME_WINDOW)
 # playerInventory.load()
 shopHandlerButton.button_rects()
 
-
 # Player Position on Load
 playerInstance.position.x, playerInstance.position.y = 0, 0
 
@@ -51,15 +50,15 @@ playerInstance.position.x, playerInstance.position.y = 0, 0
 while running:
     # Draw World
 
-    worldGeneration.DrawWorld(CANVAS, generateWorld.rects)
+    worldGeneration.draw_world(CANVAS, generateWorld.rects)
     GAME_WINDOW.blit(CANVAS, (0, 0))
 
     # Define Delta Time
     dt = CLOCK.tick(GAME_TICK) * .001 * TARGET_FPS
 
     # Control
-    playerControls.GameControls(
-        playerInstance, generateWorld.rects, playerInventory, shopHandler, shopHandlerButton)
+    playerControls.game_controls(
+        playerInstance, generateWorld.rects, playerInventory, shopHandler, shopHandlerButton, py_gui)
 
     # Update Player Position
     playerInstance.initialize(dt, generateWorld.rects)

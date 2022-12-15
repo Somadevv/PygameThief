@@ -1,15 +1,16 @@
 import pygame
 import sys
 from scripts.load_file import load_file
+import pygame_gui as py_GUI
 
 shopItems = load_file('data/items.json')
 
 
 class Controller:
 
-    def GameControls(self, Player, worldRects, Inventory, ShopHandler, ShopHandlerButton):
+    def game_controls(self, Player, worldRects, Inventory, ShopHandler, ShopHandlerButton, py_gui):
+        # print(py_gui.panels[1])
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP:
                 for i, item in enumerate(ShopHandlerButton.buttons):
@@ -20,7 +21,11 @@ class Controller:
                         else:
                             Inventory.add_item(i)
                             Player.remove_gold(shopItems[str(i)]["price"])
-
+            if event.type == py_GUI.UI_BUTTON_PRESSED:
+                for i, item in enumerate(py_gui.buttons):
+                    if event.ui_element == py_gui.buttons[i]:
+                        print(i, "pressed")
+            py_gui.manager.process_events(event)
             if event.type == pygame.KEYDOWN:
                 # Movement
                 if event.key == pygame.K_a:

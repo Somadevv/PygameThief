@@ -8,6 +8,6 @@ import pygame
 
 class World:
 
-    def DrawWorld(SURFACE, RECT):
+    def draw_world(SURFACE, RECT):
         for i in RECT:
             pygame.draw.rect(SURFACE, (217, 217, 217), i)
