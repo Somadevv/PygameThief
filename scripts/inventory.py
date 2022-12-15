@@ -19,39 +19,18 @@ class Inventory:
     def set_active_item():
         pass
 
-    def draw_hotbar(self):
-        # Container
-        containerColor = (0, 0, 0)
+    def draw_hotbar(self, gui):
         containerWidth = 150
         containerHeight = 50
         containerXpos = (self.screen.get_width() / 2) - (containerWidth / 2)
         containerYpos = self.screen.get_height() - 60
-        # pygame.draw.rect(self.screen, containerColor, pygame.Rect(
-        #     containerXpos, containerYpos, containerWidth, containerHeight))
 
-        # Hotbar items
-        origin = pygame.Rect(
-            containerXpos, containerYpos + 20, 20, 20)
         for i, item in enumerate(self.hotbar_inventory):
-            color = (27, 37, 42)
+            xPos = containerXpos + 5 + (i % 3) * 50
+            yPos = containerYpos + 5
             width = containerWidth / 3 - 10
             height = containerHeight - 10
-            yPos = containerYpos + 5
-            xPos = containerXpos + 5 + (i % 3) * 50
-            textSize = 13
-            textColor = (255, 255, 255)
-
-            # Item container
-            pygame.draw.rect(self.screen, color, pygame.Rect(
-                xPos, yPos, width, height))
-            # Item hotkey container
-            pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(
-                xPos, yPos, 10, 10))
-            # Item hotkey text
-            DrawText(self.screen, str(i + 1), 11, (255, 255, 255),
-                     xPos + 5, yPos + 5)
-            DrawText(self.screen, self.hotbar_inventory[i]["name"], textSize, textColor,
-                     xPos + width / 2, yPos + height / 2)
+            hotbar_item = gui.create_panel(xPos, yPos, width, height)
 
     def draw_bag_icon(self):
         bagWidth = 65
@@ -106,8 +85,8 @@ class Inventory:
     def remove_from_inventory(self):
         pass
 
-    def initialize(self):
-        self.draw_hotbar()
+    def draw(self, gui):
+        self.draw_hotbar(gui)
         self.draw_bag_icon()
 
         if self.toggle_inventory:
