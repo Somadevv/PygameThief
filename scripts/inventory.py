@@ -1,43 +1,35 @@
 import pygame
 from scripts.draw_text import DrawText
 from scripts.load_file import load_file
+from scripts.guiRender import GUI
+
+import pygame.freetype
+
+pygame.freetype.init()
+
+py_gui = GUI(750, 500)
 
 
 class Inventory:
     def __init__(self, screen):
-        self.hotbar_inventory = []
+        self.inventory = [{"name": "Axe", "price": "14"}, {"name": "Hat", "price": "20"}, {
+            "name": "Cock", "price": "100"}, {"name": "Slave", "price": "250"}, {"name": "Slut", "price": "2500"}, {"name": "Cunt", "price": "50"}]
         self.toggle_inventory = False
         self.screen = screen
+        self.load_inventory()
 
-    def set_active_item():
-        pass
-
-    def draw_hotbar(self, gui):
-        pass
-
-    def draw_bag_icon(self):
-        pass
-
-    def draw_inventory(self, gui):
-        # Pixel perfect grid layout
-        width, height = (30, 30)
-        x, y = (50, 50)
-        amount, perRow = (9, 3)
-        gui.create_multiple_panels(
-            x, y, width, height,  width * 2 - (width / 2), height * 2 - (height / 2), amount, perRow)
-
-    def close_inventory(self, gui):
-        pass
-
-    def remove_from_inventory(self):
-        pass
-
-    def draw(self, gui):
-        self.draw_hotbar(gui)
-        # self.draw_inventory(gui)
-        self.draw_bag_icon()
-
-        if self.toggle_inventory:
-            self.draw_inventory(gui)
-        else:
-            self.close_inventory(gui)
+    def load_inventory(self):
+        # Invnentory parent container
+        container_layer_height = 0
+        container_x, container_y = (250, 200)
+        container_width, container_height = (250, 200)
+        # Invnentory child items
+        item_amount, items_per_row = (len(self.inventory), 3)
+        item_width, item_height = (
+            (container_width / items_per_row / 2), 30)
+        item_x, item_y = (container_x + item_width / 1.5, container_y)
+        item_x_offset, item_y_offset = (item_width * 1.6, item_height * 1.6)
+        py_gui.create_panel(container_x, container_y - 20,
+                            container_width, container_height, container_layer_height)
+        py_gui.create_multiple_buttons(
+            item_x, item_y, item_width * 2 - (item_width / 2), item_height * 2 - (item_height / 2), item_x_offset, item_y_offset,  item_amount, items_per_row, self.inventory)

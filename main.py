@@ -14,8 +14,6 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 750, 500
 CANVAS = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 GAME_WINDOW = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-py_gui = GUI(SCREEN_WIDTH, SCREEN_HEIGHT)
-
 
 # FPS Params
 CLOCK = pygame.time.Clock()
@@ -32,7 +30,8 @@ playerInstance = Player(GAME_WINDOW)
 # Assign Variables to Imports
 generateWorld = WorldGenerator()
 worldGeneration = World
-playerInventory = Inventory(GAME_WINDOW)
+py_gui = GUI(SCREEN_WIDTH, SCREEN_HEIGHT)
+player_inventory = Inventory(GAME_WINDOW)
 playerControls = Controller()
 # Get Player Inventory on load
 shopHandler = Shop(GAME_WINDOW)
@@ -58,21 +57,22 @@ while running:
 
     # Control
     playerControls.game_controls(
-        playerInstance, generateWorld.rects, playerInventory, shopHandler, shopHandlerButton, py_gui)
+        playerInstance, generateWorld.rects, player_inventory, shopHandler, shopHandlerButton, py_gui)
 
     # Update Player Position
     playerInstance.initialize(dt, generateWorld.rects)
 
     # Draw Background
     CANVAS.fill((255, 255, 255))
-
     # Draw Player
     playerInstance.draw(CANVAS)
+
+    # Display fps in cli
+    # print("FPS", int(CLOCK.get_fps()))
 
     # Draw Player inventory bag
 
     shopHandler.initialize()
-    playerInventory.draw(py_gui)
 
     py_gui.initialize(dt, GAME_WINDOW)
 

@@ -20,11 +20,14 @@ class Controller:
                             print("You can't afford this")
                         else:
                             Inventory.add_item(i)
-                            Player.remove_gold(shopItems[str(i)]["price"])
+                            Player.remove_gold(shopItems[str(i + 1)]["price"])
             if event.type == py_GUI.UI_BUTTON_PRESSED:
                 for i, item in enumerate(py_gui.buttons):
                     if event.ui_element == py_gui.buttons[i]:
-                        print(i, "pressed")
+                        py_GUI.core.UIElement.hide(py_gui.buttons[i])
+                        # py_GUI.core.UIElement.disable(py_gui.buttons[i])
+
+                        print(i + 1, "clicked")
             py_gui.manager.process_events(event)
             if event.type == pygame.KEYDOWN:
                 # Movement

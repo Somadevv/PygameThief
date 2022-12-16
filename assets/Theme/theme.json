@@ -1,0 +1,24 @@
+{
+  "button": {
+    "misc": {
+      "border_width": "2",
+      "shadow_width": "5",
+      "border_color": "#193754",
+      "tool_tip_delay": "7",
+
+      "hovered_bg": "#e7eb0c"
+    }
+  },
+  "@friendly_buttons": {
+    "misc": {
+      "shadow_width": "1",
+      "shape": "rounded_rectangle",
+      "hovered_bg": "#e7eb0c"
+    }
+  },
+  "#hello_button": {
+    "misc": {
+      "text_horiz_alignment": "center"
+    }
+  }
+}
