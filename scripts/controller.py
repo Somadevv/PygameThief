@@ -47,7 +47,10 @@ class Controller:
                 if event.key == pygame.K_1:
                     print("1 pressed")
                 if event.key == pygame.K_TAB:
-                    Inventory.toggle_inventory = not Inventory.toggle_inventory
+                    # Inventory.toggle_inventory = not Inventory.toggle_inventory
+                    print(Inventory.inventory)
+                    Inventory.inventory.append({"name": "new"})
+                    print(Inventory.inventory)
                 if event.key == pygame.K_g:
                     ShopHandler.toggleOpen = not ShopHandler.toggleOpen
                 if event.key == pygame.K_a:

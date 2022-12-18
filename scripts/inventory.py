@@ -12,11 +12,9 @@ py_gui = GUI(750, 500)
 
 class Inventory:
     def __init__(self, screen):
-        self.inventory = [{"name": "Axe", "price": "14"}, {"name": "Hat", "price": "20"}, {
-            "name": "Cock", "price": "100"}, {"name": "Slave", "price": "250"}, {"name": "Slut", "price": "2500"}, {"name": "Cunt", "price": "50"}]
+        self.inventory = [{"name": "test"}]
         self.toggle_inventory = False
         self.screen = screen
-        self.load_inventory()
 
     def load_inventory(self):
         # Invnentory parent container

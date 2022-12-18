@@ -28,7 +28,7 @@ class GUI:
             yPos = y + yOffset * (i // perRow)
             self.buttons.append(py_gui.elements.UIButton(relative_rect=pygame.Rect((xPos, yPos), (width, height)),
                                                          text=player_inventory[i]["name"],
-                                                         tool_tip_text=player_inventory[i]["price"],
+
                                                          manager=self.manager,
 
                                                          object_id=ObjectID(class_id='@friendly_buttons',
