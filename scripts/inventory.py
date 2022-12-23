@@ -17,17 +17,28 @@ class Inventory:
         self.screen = screen
 
     def load_inventory(self):
-        # Invnentory parent container
+        # Draw container
         container_layer_height = 0
-        container_x, container_y = (250, 200)
-        container_width, container_height = (250, 200)
-        # Invnentory child items
-        item_amount, items_per_row = (len(self.inventory), 3)
-        item_width, item_height = (
-            (container_width / items_per_row / 2), 30)
-        item_x, item_y = (container_x + item_width / 1.5, container_y)
-        item_x_offset, item_y_offset = (item_width * 1.6, item_height * 1.6)
-        py_gui.create_panel(container_x, container_y - 20,
-                            container_width, container_height, container_layer_height)
-        py_gui.create_multiple_buttons(
-            item_x, item_y, item_width * 2 - (item_width / 2), item_height * 2 - (item_height / 2), item_x_offset, item_y_offset,  item_amount, items_per_row, self.inventory)
+        container_x, container_y = (20, 200)
+        container_width, container_height = (200, 200)
+        py_gui.create_inventory_container(container_x, container_y - 20,
+                                          container_width, container_height, container_layer_height)
+        # Draw items
+        for item in py_gui.inventory_clone:
+            py_gui.draw_inventory_item(item["name"], self.inventory)
+
+    def close_inventory(self):
+        py_gui.disable_panel(self.inventory)
+
+    def add_item(self, item):
+        if len(self.inventory) == 9:
+            print("cant")
+        else:
+            self.inventory.append(item)
+            py_gui.draw_inventory_item(item["name"], self.inventory)
+
+    def initialize(self):
+        if self.toggle_inventory:
+            self.close_inventory()
+        else:
+            self.load_inventory()

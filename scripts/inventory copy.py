@@ -85,6 +85,43 @@ class Inventory:
         surface.blit(image, (bagXpos, bagYpos))
         DrawText(surface, "Tab", textSize, (255, 255, 255),
                  50, 385)
+    # INVENTORY.PY
+    # def load_inventory(self):
+    #     # Invnentory parent container
+    #     container_layer_height = 0
+    #     container_x, container_y = (250, 200)
+    #     container_width, container_height = (250, 200)
+    #     # Invnentory child items
+    #     item_amount, items_per_row = (len(self.inventory), 3)
+    #     item_width, item_height = (
+    #         (container_width / items_per_row / 2), 30)
+    #     item_x, item_y = (container_x + item_width / 1.5, container_y)
+    #     item_x_offset, item_y_offset = (item_width * 1.6, item_height * 1.6)
+    #     py_gui.create_panel(container_x, container_y - 20,
+    #                         container_width, container_height, container_layer_height)
+    #     py_gui.create_multiple_buttons(
+    #         item_x, item_y, item_width * 2 - (item_width / 2), item_height * 2 - (item_height / 2), item_x_offset, item_y_offset,  item_amount, items_per_row, self.inventory)
+
+
+#    def create_multiple_buttons(self, x, y, width, height, xOffset, yOffset, amount, perRow, player_inventory):
+#         for i in range(amount):
+#             xPos = x + (i % perRow) * xOffset
+#             yPos = y + yOffset * (i // perRow)
+#             self.buttons.append(py_gui.elements.UIButton(relative_rect=pygame.Rect((xPos, yPos), (width, height)),
+#                                                          text=player_inventory[i]["name"],
+
+#                                                          manager=self.manager,
+
+#                                                          object_id=ObjectID(class_id='@friendly_buttons',
+
+#                                                                             object_id='#hello_button')))
+
+#     def create_multiple_panels(self, x, y, width, height, xOffset, yOffset, amount, perRow):
+#         for i in range(amount):
+#             xPos = x + (i % perRow) * xOffset
+#             yPos = y + yOffset * (i // perRow)
+#             self.panels.append(py_gui.elements.UIPanel(relative_rect=pygame.Rect(
+#                 (xPos, yPos), (width, height)), manager=self.manager))
 
     def initialize(self, surface):
         self.draw_bag_to_window(surface)

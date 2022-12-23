@@ -32,14 +32,14 @@ generateWorld = WorldGenerator()
 worldGeneration = World
 py_gui = GUI(SCREEN_WIDTH, SCREEN_HEIGHT)
 player_inventory = Inventory(GAME_WINDOW)
-playerControls = Controller()
+player_controls = Controller()
 # Get Player Inventory on load
-shopHandler = Shop(GAME_WINDOW)
-shopHandlerButton = Button(GAME_WINDOW)
+shop_handler = Shop(GAME_WINDOW)
+shop_handler_button = Button(GAME_WINDOW)
 
 
 # playerInventory.load()
-shopHandlerButton.button_rects()
+shop_handler_button.button_rects()
 
 # Player Position on Load
 playerInstance.position.x, playerInstance.position.y = 0, 0
@@ -55,9 +55,9 @@ while running:
     # Define Delta Time
     dt = CLOCK.tick(GAME_TICK) * .001 * TARGET_FPS
 
-    # Control
-    playerControls.game_controls(
-        playerInstance, generateWorld.rects, player_inventory, shopHandler, shopHandlerButton, py_gui)
+    # Controls
+    player_controls.game_controls(
+        playerInstance, generateWorld.rects, player_inventory, shop_handler, shop_handler_button, py_gui)
 
     # Update Player Position
     playerInstance.initialize(dt, generateWorld.rects)
@@ -69,11 +69,6 @@ while running:
 
     # Display fps in cli
     # print("FPS", int(CLOCK.get_fps()))
-
-    # Draw Player inventory bag
-
-    shopHandler.initialize()
-
     py_gui.initialize(dt, GAME_WINDOW)
 
     pygame.display.update()
