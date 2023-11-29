@@ -11,8 +11,7 @@ class Player:
         return cls._instance
 
     def __init__(self, surface):
-        self.rect = pygame.Rect(0, 0, 20, 40)
-        self.rect_small = pygame.Rect(0, 0, 20, 20)
+        self.rect = pygame.Rect(50, 700, 20, 40)
         self.LEFT_KEY, self.RIGHT_KEY = False, False
         self.is_jumping, self.on_ground = False, False
         self.on_right_wall, self.on_left_wall = False, False
@@ -49,10 +48,8 @@ class Player:
                  38, 17.75)
 
     def draw(self, display):
-        if self.DOWN_KEY:
-            pygame.draw.rect(display, (255, 0, 0), self.rect_small)
-        else:
-            pygame.draw.rect(display, (255, 0, 0), self.rect)
+        pygame.draw.rect(display, (255, 0, 0), self.rect)
+        print("Player is drawn at", self.position.x, self.position.y)
 
     def update(self, dt, worldRects):
         self.horizontal_movement(dt, worldRects)
@@ -67,11 +64,10 @@ class Player:
             self.acceleration.x += .5
         self.acceleration.x += self.velocity.x * self.friction
         self.velocity.x += self.acceleration.x * dt
-        self.limit_velocity(5)
+        self.limit_velocity(10)
         self.position.x += self.velocity.x * dt + \
             (self.acceleration.x * .5) * (dt * dt)
         self.rect.x = self.position.x
-        self.rect_small.x = self.position.x
 
         for i in worldRects:
             # Right Collision
@@ -116,7 +112,6 @@ class Player:
                 self.DOWN_KEY = False
 
         self.rect.bottom = self.position.y
-        self.rect_small.bottom = self.position.y
 
     def limit_velocity(self, max_vel):
         self.velocity.x = max(-max_vel, min(self.velocity.x, max_vel))
